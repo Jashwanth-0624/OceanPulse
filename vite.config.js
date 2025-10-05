@@ -15,7 +15,11 @@ export default defineConfig({
     open: true
   },
   preview: {
-    // Allow any Render subdomain for this service (deploys may change hostname)
-    allowedHosts: [/\.onrender\.com$/]
+    // Allow Render preview hosts. Include exact hostname from env for safety.
+    // RENDER_EXTERNAL_HOSTNAME is set by Render for the live service hostname.
+    allowedHosts: [
+      /\.onrender\.com$/,
+      process.env.RENDER_EXTERNAL_HOSTNAME
+    ].filter(Boolean)
   }
 })
